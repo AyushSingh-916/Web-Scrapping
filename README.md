@@ -1,104 +1,84 @@
-# 🎵 Music Streaming Analysis — Spotify Dataset
+# 📖 Word Frequency Analysis — The Great Gatsby
 
-A data analytics project analyzing 100,000+ Spotify tracks to uncover
-listening patterns, genre trends, and audio feature insights.
+A text analytics project using Python and NLP techniques to analyze word
+frequency patterns in F. Scott Fitzgerald's *The Great Gatsby*, scraped
+directly from Project Gutenberg.
 
 ---
 
 ## 📌 Problem Statement
 
-What makes a song popular on Spotify? Which genres dominate streaming?
-How has music evolved over the decades? This project answers these questions
-using real Spotify data and translates findings into actionable insights.
+Which words define *The Great Gatsby*? Which characters dominate the narrative?
+What themes emerge from raw word frequency data? This project answers these
+through web scraping, NLP preprocessing, and data visualization.
 
 ---
 
-## 📦 Dataset
+## 📦 Data Source
 
-- **Source:** [Kaggle — Spotify Tracks Dataset](https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset)
-- **Size:** ~114,000 tracks across 125 genres
-- **Key Columns:**
-  - `track_name`, `artists`, `track_genre`
-  - `popularity` (0–100 score)
-  - `danceability`, `energy`, `valence`, `tempo`, `loudness`
-  - `duration_ms`, `explicit`, `track_album_release_date`
+- **Source:** [Project Gutenberg](https://www.gutenberg.org/files/64317/64317-0.txt)
+- **Book:** The Great Gatsby — F. Scott Fitzgerald
+- **Size:** ~47,000 words (after cleaning)
+- **No download needed** — text is scraped directly at runtime
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer         | Tool                          |
-|---------------|-------------------------------|
-| Data Cleaning | Python (Pandas, NumPy)        |
-| Analysis      | Python + SQL (PostgreSQL)     |
-| Visualization | Matplotlib, Seaborn, Plotly   |
-| Version Control | GitHub                      |
+| Layer           | Tool                            |
+|-----------------|---------------------------------|
+| Web Scraping    | Python Requests, BeautifulSoup  |
+| Text Cleaning   | Python re, string               |
+| NLP / Analysis  | Collections (Counter), custom stopwords |
+| Visualization   | Matplotlib                      |
+| Version Control | GitHub                          |
 
 ---
 
-## 🧹 Data Cleaning Steps
+## 🧹 NLP Preprocessing Steps
 
-1. Removed null values and duplicate records
-2. Converted duration from milliseconds to minutes
-3. Extracted release year from date column
-4. Filtered out tracks with 0 popularity and extreme durations
-5. Standardized genre names (lowercase, stripped whitespace)
+1. Scraped raw `.txt` from Project Gutenberg
+2. Stripped Gutenberg header/footer boilerplate
+3. Lowercased all text
+4. Removed punctuation and special characters using regex
+5. Tokenized text by whitespace splitting
+6. Removed 100+ custom stopwords (articles, prepositions, pronouns etc.)
+7. Filtered tokens shorter than 3 characters
 
 ---
 
 ## 📊 Analysis Performed
 
-### Artist Analysis
-- Top 10 artists by average popularity
-- Most prolific artists by track count
-- Artists dominating multiple genres
-
-### Genre Analysis
-- Top genres by popularity score
-- Genre-wise audio feature comparison
-- Genre market share distribution
-
-### Audio Feature Analysis
-- Correlation heatmap across all features
-- Audio features of high vs low popularity tracks
-- Mood classification (Euphoric / Aggressive / Peaceful / Melancholic)
-
-### Time Trend Analysis
-- Song duration trend from 1960–2023
-- Year-over-year energy and danceability shifts
-- Top tracks per year using window functions
+- **Top 20 most frequent words** — bar chart with character vs thematic coloring
+- **Thematic word group comparison** — Wealth, Characters, Emotions, Time & Past
+- **Word frequency distribution** — log-scale curve (Zipf's Law pattern)
+- **Character mention frequency** — Gatsby, Daisy, Tom, Nick, Jordan
 
 ---
 
 ## 💡 Key Insights
 
-1. **Pop and Dance** genres consistently score highest in popularity
-2. **Song duration has dropped** significantly post-2015 — shorter, hook-driven tracks dominate
-3. **Danceability + Energy** are stronger predictors of popularity than valence (mood) alone
-4. **Explicit tracks** tend to score slightly higher in popularity on average
-5. **Music has become louder and more energetic** over the decades — a trend called the "Loudness War"
-6. **Euphoric tracks** (high energy + positive mood) have the highest average popularity score
+1. **Gatsby** is the most mentioned character, reinforcing his central narrative role
+2. **Time & Past** is the dominant thematic group — aligns with the novel's nostalgia motif
+3. **Wealth-related words** appear frequently, reflecting the novel's class commentary
+4. Word frequency follows **Zipf's Law** — a small set of words account for most occurrences
+5. **Daisy** is mentioned significantly less than Gatsby despite being the emotional center
 
 ---
 
 ## 📁 Project Structure
 
 ```
-music_streaming_analysis/
+gatsby_analysis/
 │
-├── analysis.py          # Main Python EDA script
-├── queries.sql          # All SQL queries (basic → advanced)
+├── analysis.py          # Main scraping + NLP + visualization script
 ├── README.md            # This file
 │
-└── outputs/             # Auto-generated charts
-    ├── 01_top_artists.png
-    ├── 02_top_genres.png
-    ├── 03_correlation_heatmap.png
-    ├── 04_duration_trend.png
-    ├── 05_energy_vs_popularity.html
-    ├── 06_danceability_distribution.png
-    ├── 07_popularity_distribution.png
-    └── 08_explicit_popularity.png
+└── outputs/
+    ├── 01_top_words.png
+    ├── 02_themes.png
+    ├── 03_frequency_distribution.png
+    └── 04_character_mentions.png
 ```
 
 ---
@@ -107,23 +87,16 @@ music_streaming_analysis/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/music-streaming-analysis
+git clone https://github.com/yourusername/gatsby-word-frequency
 
 # 2. Install dependencies
-pip install pandas numpy matplotlib seaborn plotly
+pip install requests beautifulsoup4 matplotlib
 
-# 3. Download dataset from Kaggle and place in project folder
-#    Rename it to: spotify_tracks.csv
-
-# 4. Create outputs folder
-mkdir outputs
-
-# 5. Run the analysis
+# 3. Run the analysis (scrapes + cleans + visualizes in one go)
 python analysis.py
 ```
 
 ---
 
 ## 🔗 Connect
-
 Made by [Your Name] | [LinkedIn] | [GitHub]
